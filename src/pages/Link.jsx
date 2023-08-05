@@ -13,6 +13,7 @@ function Link() {
         setLoading(true);
         axios.post('https://api.izabel.ai/api/instagram', { url: url })
         .then((response) => {
+            setContent('');
             const text = response.data.content.trim();
             let index = -1; 
             const interval = setInterval(() => {
@@ -24,10 +25,9 @@ function Link() {
             }
             }, 30);
             // setContent(response.data.content)
-            console.log(response.data.content);
         })
         .catch((error) => {
-          console.error('Error:', error);
+          alert(error.response.data.content);
         })
         .finally(() => {
             setLoading(false);

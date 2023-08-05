@@ -9,8 +9,8 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Input />} />
-                <Route path="/one" element={<Link />} />
+                <Route path="/" element={<Link />} />
+                <Route path="/one" element={<Input />} />
             </Routes>
         </BrowserRouter>
         // <div className="wrapper center">
