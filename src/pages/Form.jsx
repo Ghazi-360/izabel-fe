@@ -1,7 +1,11 @@
 import React from 'react'
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
 
-function Input() {
+function Form() {
+
+    const navigate = useNavigate()
+
     return (
         <>
             <div className="center">
@@ -72,7 +76,7 @@ function Input() {
 
                         </textarea>
                         <div className="button-wrapper">
-                            <button className='BTN'>Submit</button>
+                            <button onClick={() => navigate('/payment')} className='BTN'>Submit</button>
                         </div>
                     </div>
                 </div>
@@ -81,4 +85,4 @@ function Input() {
     )
 }
 
-export default Input
+export default Form

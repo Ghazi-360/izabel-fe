@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
 
-function Link() {
+function Home() {
 
+    const navigate = useNavigate()
     const [url, setUrl] = useState('')
     const [loading, setLoading] = useState(false);
     const [content, setContent] = useState('')
@@ -23,8 +25,6 @@ function Link() {
                 setLoading(false);
             }
             }, 30);
-            // setContent(response.data.content)
-            console.log(response.data.content);
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -63,10 +63,11 @@ function Link() {
                         )
                         :null}
                     </div>
+                    <button onClick={() => navigate('plan')}></button>
                 </div>
             </div>
         </>
     )
 }
 
-export default Link
+export default Home
