@@ -41,6 +41,7 @@ function Form() {
     const { selectedPlan, userData, updateFormData } = usePlanContext() 
 
     const email = userData.email;
+    const plan = selectedPlan.name;
 
     const [url, setUrl] = useState('');
     const [apiResponse, setApiResponse] = useState(null);
@@ -52,7 +53,6 @@ function Form() {
     const [city, setCity] = useState('')
     const [countries, setCountries] = useState([]);
     const [description, setDescription] = useState('')
-
 
     const checkUrl = (e) => {
         e.preventDefault();    
@@ -81,15 +81,19 @@ function Form() {
     }, []);
 
     useEffect(() => {
-        setCity(capitalCities[country]);
+        if (capitalCities.length === 0 || capitalCities[country] === undefined) {
+            setCity('')
+        } else {
+            setCity(capitalCities[country]);
+        }
     }, [country]);
 
     const checkout = () => {
+        updateFormData(url, email, language, writingStyle, country, city, plan)
         window.location.href = selectedPlan.link        
     }
 
     const gotToProceed = () => {
-        updateFormData(url, email, language, writingStyle, country, city)
         navigate('/proceed')
     }
  
@@ -122,8 +126,7 @@ function Form() {
                             <TypewriterEffect text="Alas! I could not check your site." speed={50} onComplete={handleTypewriterComplete} />
                             )}
                         </p>
-                    )}
-                    
+                    )}                    
                     <p>You choose {selectedPlan.name} plan</p>
                     {
                         selectedPlan.name === "Professional" ? (

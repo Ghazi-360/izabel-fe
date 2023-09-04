@@ -1,39 +1,37 @@
-import axios from 'axios';
 import React from 'react'
-import { usePlanContext } from '../contexts/PlanContext';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function Proceed() {
 
     const navigate = useNavigate()
-    const { selectedPlan, formData } = usePlanContext()
+    const plan = JSON.parse(localStorage.getItem("formData")).selectedPlan;
 
     let posts;
 
-    if (selectedPlan.name === 'Beginner') {
+    if (plan === 'Beginner') {
         posts = 7;
-    } else if (selectedPlan.name === 'Intermediate') {
+    } else if (plan === 'Intermediate') {
         posts = 15;
-    } else {
+    } else if (plan === 'Professional'){
         posts = 30
-    }
+    } else {}
 
     const proceed = () => {
+        const storedFormData = JSON.parse(localStorage.getItem("formData"));
         axios.post('https://api.izabel.ai/api/service', 
             { 
-                url: formData.url,
+                url: storedFormData.url,
                 number_of_posts: posts,
-                email: formData.email,
-                language: formData.language,
-                writing_style: formData.writing_style,
-                target_country: formData.target_country,
-                target_city: formData.target_city,
+                email: storedFormData.email,
+                language: storedFormData.language,
+                writing_style: storedFormData.writing_style,
+                target_country: storedFormData.target_country,
+                target_city: storedFormData.target_city,
             }
         )
         .then((response) => {
-            console.log(response)
             navigate('/account')
-            // setApiResponse(response.data.content);
         })
         .catch((error) => {
             console.error('Error:', error);

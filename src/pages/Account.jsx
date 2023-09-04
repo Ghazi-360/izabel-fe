@@ -1,19 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { usePlanContext } from '../contexts/PlanContext';
 
 function Account() {
 
-    const { userData } = usePlanContext() 
-
-    const email = userData.email;
-
+    const email = JSON.parse(localStorage.getItem("formData")).email;
     const [userDocs, setUserDocs] = useState([]);
 
     useEffect(() => {
         axios.post('https://api.izabel.ai/api/get-user-docs', { email: email })
         .then((response) => {
-            setUserDocs(response.data.docs); // Assuming the API response structure matches the data you provided
+            setUserDocs(response.data.docs); 
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -43,9 +39,9 @@ function Account() {
                                 <td>{doc.status}</td>
                                 <td>
                                     {doc.download_link && (
-                                    <a href={doc.download_link} target="_blank" rel="noopener noreferrer">
-                                        Download
-                                    </a>
+                                        <a href={doc.download_link} target="_blank" rel="noopener noreferrer">
+                                            Download
+                                        </a>
                                     )}
                                 </td>
                             </tr>

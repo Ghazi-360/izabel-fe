@@ -10,12 +10,10 @@ function Home() {
     const [loading, setLoading] = useState(false);
     const [content, setContent] = useState('')
     const [cursorVisible, setCursorVisible] = useState(true);
-    const [showButton, setShowButton] = useState(false);
 
     const getContent = () => {
         setLoading(true);
         setContent('');
-        setShowButton(false);
         axios.post('https://api.izabel.ai/api/instagram', { url: url })
         .then((response) => {
             const text = response.data.content.trim();
@@ -26,7 +24,6 @@ function Home() {
             if (index === text.length - 1) {
                 clearInterval(interval);
                 setLoading(false);
-                setShowButton(true);
             }
             }, 30);
         })
@@ -67,9 +64,7 @@ function Home() {
                         )
                         :null}
                     </div>
-                    {showButton && (
-                        <button style={{margin: "10px"}} onClick={() => navigate('plan')}>Next</button>
-                    )}
+                    <button style={{margin: "10px"}} onClick={() => navigate('plan')}>Next</button>                    
                 </div>
             </div>
         </>

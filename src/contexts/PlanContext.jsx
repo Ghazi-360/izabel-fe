@@ -7,6 +7,7 @@ export const usePlanContext = () => {
 }
 
 export const PlanProvider = ({ children }) => {
+
     // Check user selected plan and link to Stripe Payment for respective plane
     const [selectedPlan, setSelectedPlan] = useState({link: ""});
 
@@ -32,27 +33,36 @@ export const PlanProvider = ({ children }) => {
         });
     };
 
-    // Store Form Values
-    const [formData, setFormData] = useState({
+    // Load formData from localStorage on component initialization
+    const initialFormData = JSON.parse(window.localStorage.getItem("formData")) || {
         url: "",
         number_of_posts: 0,
         email: "",
         language: "",
         writing_style: "",
         target_country: "",
-        target_city: ""
-    })
+        target_city: "",
+    };
 
-    const updateFormData = (url, email, language, style, country, city) => {
-        setFormData({
-            url: url,
-            email: email, 
-            language: language,
+    const [formData, setFormData] = useState(initialFormData);
+
+    // Update formData and also save it to localStorage whenever it changes
+    const updateFormData = (url, email, language, style, country, city, plan) => {
+        const newFormData = {
+            url,
+            email,
+            language,
             writing_style: style,
             target_country: country,
-            target_city: city
-        })
-    }
+            target_city: city,
+            selectedPlan: plan
+        };
+
+        setFormData(newFormData);
+
+        // Save the updated formData to localStorage
+        window.localStorage.setItem("formData", JSON.stringify(newFormData));
+    };
 
     return (
         <PlanContext.Provider value={{ userData, selectedPlan, formData, updatePlan, updateUserValues, updateFormData }}>
