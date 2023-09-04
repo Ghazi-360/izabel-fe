@@ -38,14 +38,16 @@ function TypewriterEffect({ text, speed, onComplete }) {
 function Form() {
 
     const navigate = useNavigate()
-    const { selectedPlan } = usePlanContext()
+    const { selectedPlan, userData, updateFormData } = usePlanContext() 
+
+    const email = userData.email;
 
     const [url, setUrl] = useState('');
     const [apiResponse, setApiResponse] = useState(null);
     const [typewriterVisible, setTypewriterVisible] = useState(false);
     const [initialTypewriterComplete, setInitialTypewriterComplete] = useState(false);
-    const [language, setLanguage] = useState('english')
-    const [writingStyle, setWritingStyle] = useState('promotional')
+    const [language, setLanguage] = useState('')
+    const [writingStyle, setWritingStyle] = useState('')
     const [country, setCountry] = useState('')
     const [city, setCity] = useState('')
     const [countries, setCountries] = useState([]);
@@ -86,6 +88,11 @@ function Form() {
         window.location.href = selectedPlan.link        
     }
 
+    const gotToProceed = () => {
+        updateFormData(url, email, language, writingStyle, country, city)
+        navigate('/proceed')
+    }
+ 
     return (
         <>
             <div className="center">
@@ -197,6 +204,7 @@ function Form() {
                     }
                     <div className="button-wrapper">
                         <button onClick={() => checkout()} className='BTN'>Submit</button>
+                        <button onClick={() => gotToProceed()} className='BTN'>Go To Proceed</button>
                     </div>
                 </div>
             </div>

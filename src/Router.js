@@ -6,6 +6,8 @@ import Plan from "./pages/Plan";
 import Login from "./pages/Login";
 import Form from "./pages/Form";
 import Payments from "./pages/Payments";
+import Proceed from "./pages/Proceed";
+import Account from "./pages/Account";
 
 const Router = createBrowserRouter ([
     {
@@ -26,7 +28,11 @@ const Router = createBrowserRouter ([
     },
     {
         path: "/proceed",
-        element: <Form />
+        element: <Proceed />
+    },
+    {
+        path: "/account",
+        element: <Account />
     },
     {
         path: "/status",
