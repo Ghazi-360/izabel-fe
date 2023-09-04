@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Plan from "./pages/Plan";
 import Login from "./pages/Login";
 import Form from "./pages/Form";
-import Payment from "./pages/Payment";
+import Payments from "./pages/Payments";
 
 const Router = createBrowserRouter ([
     {
@@ -25,8 +25,12 @@ const Router = createBrowserRouter ([
         element: <Form />
     },
     {
-        path: "/payment",
-        element: <Payment />
+        path: "/proceed",
+        element: <Form />
+    },
+    {
+        path: "/status",
+        element: <Payments />
     },
 ])
 
