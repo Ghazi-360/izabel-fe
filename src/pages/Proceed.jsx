@@ -5,7 +5,10 @@ import { useNavigate } from 'react-router-dom';
 function Proceed() {
 
     const navigate = useNavigate()
-    const plan = JSON.parse(localStorage.getItem("formData")).selectedPlan;
+    const plan = JSON.parse(localStorage.getItem("planData")).name
+    const email = window.localStorage.getItem("emailForSignIn")
+
+    console.log(email)
 
     let posts;
 
@@ -23,7 +26,7 @@ function Proceed() {
             { 
                 url: storedFormData.url,
                 number_of_posts: posts,
-                email: storedFormData.email,
+                email: email,
                 language: storedFormData.language,
                 writing_style: storedFormData.writing_style,
                 target_country: storedFormData.target_country,
@@ -41,6 +44,7 @@ function Proceed() {
     return (
         <div className="wrapper center">
             <div className="login-wrapper">
+                <p>Please Click to proceed to your Account!</p>
                 <button onClick={() => proceed()}>Proceed</button>                    
             </div>
         </div>

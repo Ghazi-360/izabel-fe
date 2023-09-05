@@ -64,7 +64,7 @@ function Home() {
                         )
                         :null}
                     </div>
-                    <button style={{margin: "10px"}} onClick={() => navigate('plan')}>Next</button>                    
+                    <button className='BTN' style={{margin: "10px"}} onClick={() => navigate('plan')}>Next</button>                    
                 </div>
             </div>
         </>

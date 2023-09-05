@@ -38,10 +38,11 @@ function TypewriterEffect({ text, speed, onComplete }) {
 function Form() {
 
     const navigate = useNavigate()
-    const { selectedPlan, userData, updateFormData } = usePlanContext() 
+    const { updateFormData } = usePlanContext() 
 
-    const email = userData.email;
-    const plan = selectedPlan.name;
+    const email = window.localStorage.getItem("emailForSignIn")
+    const plan = JSON.parse(localStorage.getItem("planData")).name
+    const link = JSON.parse(localStorage.getItem("planData")).stripeLink
 
     const [url, setUrl] = useState('');
     const [apiResponse, setApiResponse] = useState(null);
@@ -89,12 +90,8 @@ function Form() {
     }, [country]);
 
     const checkout = () => {
-        updateFormData(url, email, language, writingStyle, country, city, plan)
-        window.location.href = selectedPlan.link        
-    }
-
-    const gotToProceed = () => {
-        navigate('/proceed')
+        updateFormData(url, email, language, writingStyle, country, city)
+        window.location.href = link     
     }
  
     return (
@@ -127,9 +124,9 @@ function Form() {
                             )}
                         </p>
                     )}                    
-                    <p>You choose {selectedPlan.name} plan</p>
+                    <p>You choose {plan} plan</p>
                     {
-                        selectedPlan.name === "Professional" ? (
+                        plan === "Professional" ? (
                             <>                                
                                 <div className="inputs">
                                     <div className="dropdown">

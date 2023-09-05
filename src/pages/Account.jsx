@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 function Account() {
 
-    const email = JSON.parse(localStorage.getItem("formData")).email;
+    const email = window.localStorage.getItem("emailForSignIn")
     const [userDocs, setUserDocs] = useState([]);
 
     useEffect(() => {

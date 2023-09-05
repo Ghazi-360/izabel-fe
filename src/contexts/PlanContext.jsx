@@ -12,26 +12,13 @@ export const PlanProvider = ({ children }) => {
     const [selectedPlan, setSelectedPlan] = useState({link: ""});
 
     const updatePlan = (name, link) => { 
-        setSelectedPlan({
+        const planData = {
             name: name,
-            link: link
-        }) 
+            stripeLink: link
+        }
+        setSelectedPlan(planData) 
+        window.localStorage.setItem("planData", JSON.stringify(planData))
     }
-
-    // Store User information after Google Sign up
-    const [userData, setUserData] = useState({
-        email: "",
-        name: "",
-        id: 0
-    })
-
-    const updateUserValues = (email, name, id) => {
-        setUserData({
-            email: email,
-            name: name,
-            id: id
-        });
-    };
 
     // Load formData from localStorage on component initialization
     const initialFormData = JSON.parse(window.localStorage.getItem("formData")) || {
@@ -47,7 +34,7 @@ export const PlanProvider = ({ children }) => {
     const [formData, setFormData] = useState(initialFormData);
 
     // Update formData and also save it to localStorage whenever it changes
-    const updateFormData = (url, email, language, style, country, city, plan) => {
+    const updateFormData = (url, email, language, style, country, city) => {
         const newFormData = {
             url,
             email,
@@ -55,7 +42,6 @@ export const PlanProvider = ({ children }) => {
             writing_style: style,
             target_country: country,
             target_city: city,
-            selectedPlan: plan
         };
 
         setFormData(newFormData);
@@ -65,7 +51,7 @@ export const PlanProvider = ({ children }) => {
     };
 
     return (
-        <PlanContext.Provider value={{ userData, selectedPlan, formData, updatePlan, updateUserValues, updateFormData }}>
+        <PlanContext.Provider value={{ selectedPlan, formData, updatePlan, updateFormData }}>
             {children}
         </PlanContext.Provider>
     );
