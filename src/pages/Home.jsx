@@ -13,6 +13,7 @@ function Home() {
 
     const getContent = () => {
         setLoading(true);
+        setContent('');
         axios.post('https://api.izabel.ai/api/instagram', { url: url })
         .then((response) => {
             const text = response.data.content.trim();
@@ -42,7 +43,7 @@ function Home() {
         return () => {
           clearInterval(cursorInterval);
         };
-      }, []);
+    }, []);
 
     return (
         <>
@@ -63,7 +64,7 @@ function Home() {
                         )
                         :null}
                     </div>
-                    <button onClick={() => navigate('plan')}></button>
+                    <button style={{margin: "10px"}} onClick={() => navigate('plan')}>Next</button>                    
                 </div>
             </div>
         </>
