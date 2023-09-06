@@ -28,20 +28,22 @@ function Home() {
             }, 30);
         })
         .catch((error) => {
-          console.error('Error:', error);
-        })
-        .finally(() => {
-            setLoading(false);
-        });
+                if (error.response) {
+                    alert(error.response.data.content);
+                }
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     useEffect(() => {
         const cursorInterval = setInterval(() => {
-          setCursorVisible((prevCursorVisible) => !prevCursorVisible);
+            setCursorVisible((prevCursorVisible) => !prevCursorVisible);
         }, 1000); // Adjust blinking speed here (500ms means the cursor blinks every half-second)
-    
+
         return () => {
-          clearInterval(cursorInterval);
+            clearInterval(cursorInterval);
         };
     }, []);
 
@@ -56,15 +58,15 @@ function Home() {
                         </button>
                     </div>
                     <div className="output">
-                        { content ? (
+                        {content ? (
                             <>
                                 <span>{content}</span>
                                 {cursorVisible && <div className="cursor">|</div>}
                             </>
                         )
-                        :null}
+                            : null}
                     </div>
-                    <button className='BTN' style={{margin: "10px"}} onClick={() => navigate('plan')}>Next</button>                    
+                    <button className='BTN' style={{ margin: "10px" }} onClick={() => navigate('plan')}>Next</button>
                 </div>
             </div>
         </>
